@@ -1,4 +1,5 @@
 {% load static %}
+{% load poll_extras %}
 <!DOCTYPE html>
 <html lang="fa-IR" dir="rtl">
 <head>
@@ -38,11 +39,11 @@
                 <td><input type="checkbox"></td>
                 <th>{{ user.user.id }}</th>
                 <td>{{ user.user.email }}</td>
-                <td>{% if user.user.is_superuser %}مدیر اصلی{% endif %}</td>
+                <td>{% if user.user|has_group:"مدیر اصلی" %}مدیر اصلی{% endif %}</td>
                 <td>{{ user.user.get_full_name }}</td>
-                <td>{{ user.user.last_login }}</td>
+                <td>{% if user.user.last_login %}{{ user.user.last_login }}{% endif %}</td>
                 <td></td>
-                <td>{{ user.city }}</td>
+                <td>{% if user.city %}{{ user.city }}{% endif %}</td>
             </tr>
             {% endfor %}
             </tbody>
@@ -53,7 +54,8 @@
 
 
 <!--        modal -->
-
+<form method="post">
+  {% csrf_token %}
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -64,28 +66,30 @@
         </button>
       </div>
       <div class="modal-body">
-        <form>
+        
           <div class="form-group">
-<!--            <label for="recipient-name" class="col-form-label">Recipient:</label>-->
-            <input class="form-control" type="text" placeholder="آدرس ایمیل">
-            <input class="form-control" type="text" placeholder="کلمه عبور">
-            <input class="form-control" type="text" placeholder="تایید کلمه عبور">
-            <input class="form-control" type="text" placeholder="نام">
-            <input class="form-control" type="text" placeholder="نام خانوادگی">
-<!--            <input class="form-control" ="text" placeholder="Default input">-->
-              <select class="form-control">
-  <option>ادمین اصلی</option>
-</select>
+            {{form.email}}
+            {{form.password}}
+            {{form.re_password}}
+            {{form.first_name}}
+            {{form.last_name}}
+            {{form.groups}}
+              <!-- <select class="form-control">
+                {% for group in groups %}
+                  <option value="{{ group }}" name='group'>{{ group }}</option>
+                {% endfor %}
+              </select> -->
           </div>
-        </form>
+        
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
-        <button type="button" class="btn btn-primary">ذخیره</button>
+        <button type="submit" class="btn btn-primary">ذخیره</button>
       </div>
     </div>
   </div>
 </div>
+</form>
 
     </div>
 </div>
