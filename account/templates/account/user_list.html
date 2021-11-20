@@ -1,0 +1,99 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="fa-IR" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'account/css/accounts.css' %}">
+    <link rel="stylesheet" href="{% static 'account/css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'account/fontawesome/css/all.min.css' %}">
+    <title>کاربران</title>
+</head>
+<body>
+<div class="container mt-4 rounded-lg p-2 border">
+    <div class="bg-info p-2 rounded">
+        <span class="text-right text-white font-bold">لیست کاربران</span>
+    </div>
+    <div class="p-2">
+        <div class="action-btn mt-4 mb-4">
+            <button class="fa fa-plus btn btn-primary"  data-toggle="modal" data-target="#exampleModal" data-whatever="@mdo"></button>
+            <button class="fa fa-trash btn btn-danger"></button>
+            <button class="fa fa-edit btn btn-primary"></button>
+        </div>
+        <table class="table table-bordered table-striped rtl">
+            <thead>
+            <tr>
+                <th scope="col"></th>
+                <th scope="col">شماره کاربر</th>
+                <th scope="col">آدرس ایمیل</th>
+                <th scope="col">نوع کاربر</th>
+                <th scope="col">نام - نام خانوادگی</th>
+                <th scope="col">آخرین ورود</th>
+                <th scope="col">تعداد ورود</th>
+                <th scope="col">شهر نماینده</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for user in users %}
+            <tr>
+                <td><input type="checkbox"></td>
+                <th>{{ user.user.id }}</th>
+                <td>{{ user.user.email }}</td>
+                <td>{% if user.user.is_superuser %}مدیر اصلی{% endif %}</td>
+                <td>{{ user.user.get_full_name }}</td>
+                <td>{{ user.user.last_login }}</td>
+                <td></td>
+                <td>{{ user.city }}</td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <div class="mt-4 mb-2">
+            <span class="text-sm">نمایش 1 تا {{users.count }} از مجموع {{ users.count }}</span>
+        </div>
+
+
+<!--        modal -->
+
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">New message</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form>
+          <div class="form-group">
+<!--            <label for="recipient-name" class="col-form-label">Recipient:</label>-->
+            <input class="form-control" type="text" placeholder="آدرس ایمیل">
+            <input class="form-control" type="text" placeholder="کلمه عبور">
+            <input class="form-control" type="text" placeholder="تایید کلمه عبور">
+            <input class="form-control" type="text" placeholder="نام">
+            <input class="form-control" type="text" placeholder="نام خانوادگی">
+<!--            <input class="form-control" ="text" placeholder="Default input">-->
+              <select class="form-control">
+  <option>ادمین اصلی</option>
+</select>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
+        <button type="button" class="btn btn-primary">ذخیره</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    </div>
+</div>
+
+<script src="{% static "account/js/jquery.min.js" %}"></script>
+<script src='{% static 'account/js/popper.min.js' %}'></script>
+<script src='{% static 'account/js/bootstrap.min.js' %}'></script>
+<!--<script src="{% static "account/js/script.js" %}"></script>-->
+
+</body>
+</html>

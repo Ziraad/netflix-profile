@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'Vazir';
+    src: url('../fonts/vazir/vazir.eot');
+    src: url('../fonts/vazir/vazir.ttf') format('ttf'), url('../fonts/vazir/vazir.woff') format('woff');
+}
+
+*{
+ padding: 0;
+ margin: 0;
+ box-sizing: border-box;
+}
+html, body {
+    overflow-x: hidden;
+    font-family: Vazir, sans-serif !important;
+    direction: rtl !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+body {
+    direction: rtl;
+    background-color: gray;
+}
