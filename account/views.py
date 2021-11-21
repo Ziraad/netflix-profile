@@ -38,3 +38,7 @@ def user_list(request):
     }
 
     return render(request, 'account/user_list.html', context=context)
+
+
+def user_profile(request):
+    pass
