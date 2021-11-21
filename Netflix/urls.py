@@ -22,8 +22,9 @@ from rest_framework_simplejwt import views as jwt_views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('account.urls')),
-    path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
-    path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    # path('api/token/', jwt_views.TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    # path('api/token/refresh/', jwt_views.TokenRefreshView.as_view(), name='token_refresh'),
+    path('api/rest-auth/', include('dj_rest_auth.urls'))
 ]
 urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
