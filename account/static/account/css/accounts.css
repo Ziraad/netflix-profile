@@ -16,12 +16,6 @@ html, body {
     margin: 0 !important;
     padding: 0 !important;
 }
-
-body {
-    direction: rtl;
-    background-color: gray;
-}
-
-form .form-group {
-    display: grid;
+.form-group{
+    display: grid
 }

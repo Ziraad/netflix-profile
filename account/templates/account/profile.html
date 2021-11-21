@@ -4,10 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <link rel="stylesheet"  href="{% static 'account/css/bootstrap.min.css' %}">
-    <title>Title</title>
+    <title>{{user}}</title>
 </head>
 
 <body>
+
+<div class="container text-center mt-5">
+    <span>معرف : {{user.user.username}}</span>
+<div class="mt-5">
+    <form action="" method="post">
+        {% csrf_token %}
+        <input type="hidden" value="{{user.user.username}}" name="presenter">
+        <button type="submit" class="btn btn-primary">خرید</button>
+    </form>
+</div>
+
+</div>
 
 <script src='{% static 'account/js/jquery.min.js' %}'></script>
 <script src='{% static 'account/js/bootstrap.min.js' %}'></script>

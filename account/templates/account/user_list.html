@@ -38,7 +38,7 @@
             <tr>
                 <td><input type="checkbox"></td>
                 <th>{{ user.user.id }}</th>
-                <td>{{ user.user.email }}</td>
+                <td><a href="{{user.get_absolute_url}}">{{ user.user.email }}</a></td>
                 <td>{% if user.user|has_group:"مدیر اصلی" %}مدیر اصلی{% endif %}</td>
                 <td>{{ user.user.get_full_name }}</td>
                 <td>{% if user.user.last_login %}{{ user.user.last_login }}{% endif %}</td>
@@ -54,7 +54,7 @@
 
 
 <!--        modal -->
-<form method="post">
+<form method="post" class="form-register">
   {% csrf_token %}
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
@@ -66,21 +66,25 @@
         </button>
       </div>
       <div class="modal-body">
-        
+
           <div class="form-group">
-            {{form.email}}
-            {{form.password}}
-            {{form.re_password}}
-            {{form.first_name}}
-            {{form.last_name}}
-            {{form.groups}}
-              <!-- <select class="form-control">
-                {% for group in groups %}
-                  <option value="{{ group }}" name='group'>{{ group }}</option>
-                {% endfor %}
-              </select> -->
+              {{ form.email }}
+              <div class="email_validation">
+                  <span class="text-danger"></span>
+              </div>
+                {{form.password}}
+              <div class="password_validation">
+                  <span class="text-danger"></span>
+              </div>
+                {{form.re_password}}
+              <div class="re_password_validation">
+                  <span class="text-danger"></span>
+              </div>
+                {{form.first_name}}
+                {{form.last_name}}
+                {{form.groups}}
           </div>
-        
+
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">بستن</button>
@@ -97,6 +101,8 @@
 <script src="{% static "account/js/jquery.min.js" %}"></script>
 <script src='{% static 'account/js/popper.min.js' %}'></script>
 <script src='{% static 'account/js/bootstrap.min.js' %}'></script>
+<script src="{% static 'account/js/register_user.js' %}"></script>
+
 <!--<script src="{% static "account/js/script.js" %}"></script>-->
 
 </body>

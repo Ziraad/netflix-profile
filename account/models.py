@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
+import uuid
 
 
 class Profile(models.Model):
@@ -11,6 +13,7 @@ class Profile(models.Model):
         verbose_name_plural = 'نمایه کاربری'
 
     user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='کاربر')
+    random_url = models.UUIDField('آدرس اختصاصی', default=uuid.uuid4)
     # important fields that are stored in User model:
     #   first_name, last_name, email, date_joined
     point = models.IntegerField('امتیاز', default=0)
@@ -25,4 +28,7 @@ class Profile(models.Model):
             return self.user.get_full_name()
         else:
             return self.user.username
+
+    def get_absolute_url(self):
+        return reverse('account:user_profile', args=[self.user.id])
 
