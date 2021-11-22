@@ -1,0 +1,41 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% load poll_extras %}
+{% block body %}
+<div class="mt-5 container">
+    <div class="mt-5 mb-5">
+        <h3 class="text-center"> <b class="text-info">{{ user }}</b> عزیز برای نهایی کردن خرید روی دکمه 'خرید نهایی' کلیک کنید </h3>
+    </div>
+    <table class="table table-bordered rtl">
+        <thead>
+        <tr class="bg-info">
+            <th scope="col">#</th>
+            <th scope="col">نام محصول</th>
+            <th scope="col">قیمت</th>
+            {#                    <th scope="col">Handle</th>#}
+        </tr>
+        </thead>
+        <tbody>
+        {% for product in products %}
+        <tr>
+            <th scope="row">1</th>
+            <td>{{ product.name }}</td>
+            <td>{{ product.price }}</td>
+            {#                    <td>@mdo</td>#}
+        </tr>
+        {% endfor %}
+        <tr class="font-weight-bold">
+{#            <th scope="row"></th>#}
+            <th colspan="2">جمع کل مبلغ</th>
+            <th>1000 تومان</th>
+            {#                    <td>@fat</td>#}
+        </tr>
+        </tbody>
+    </table>
+    <form action="" method="post">
+        {% csrf_token %}
+        <button type="submit" class="btn btn-primary p-3">خرید نهایی</button>
+    </form>
+
+</div>
+{% endblock %}

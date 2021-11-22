@@ -7,13 +7,15 @@ $(document).ready(function () {
         let csrftoken = $("[name=csrfmiddlewaretoken]").val();
 
         let email = $('#id_email');
+        console.log('email', email)
         let password = $('#id_password');
         let re_password = $('#id_re_password');
         let email_validation = $('.email_validation');
-        let password_container = $('.password-container');
+        // let password_container = $('.password-container');
 
         if (email.val() == "") {
-            $('.email_validation').show();
+            email_validation.show();
+            $('.email_validation span').text('ایمیل را وارد کنید');
             email.focus();
             return false;
         }
@@ -26,21 +28,14 @@ $(document).ready(function () {
             email_validation.hide();
         }
 
-         password ------------------------------------------------
-//        if (password.val() == "") {
-//            password_container.addClass('border-red-500');
-//            password.focus();
-//            return false;
-//        } else {
-//            password_container.removeClass('border-red-500');
-//        }
-        if (passivization(password.val()) == false) {
+        if (passivization(password.val(), re_password.val()) == false) {
             $('.password_validation').show();
             password.focus();
             return false;
-        } else if (passivization(password.val()) == true) {
+        } else if (passivization(password.val(), re_password.val()) == true) {
             $('.password_validation').hide();
         }
+
 
         $.ajax({
             type: "POST",
@@ -54,7 +49,6 @@ $(document).ready(function () {
 
             },
             error: function (rs, e) {
-
             },
         })
     });
@@ -68,15 +62,23 @@ $(document).ready(function () {
         }
     }
 
-    function passivization(pass_value) {
+    function passivization(pass_value, re_pass_value) {
+        if (pass_value.length === 0){
+            $('.password_validation span').text('کلمه عبور خالی است و یا کوتاه است!');
+            return false;
+        }
         if (pass_value.length < 8){
-            $('.password_validation span').text('طول پسورد باید از 8 کاراکتر بیشتر باشد!');
+            $('.password_validation span').text('طول گذرواژه باید از 8 کاراکتر بیشتر باشد!');
             return false;
         }
         else if(pass_value.length > 12){
-            $('.password_validation span').text('طول پسورد باید از 12 کاراکتر کمتر باشد!');
+            $('.password_validation span').text('طول گذرواژه باید از 12 کاراکتر کمتر باشد!');
              return false;
-        }else{
+        } else if(pass_value !== re_pass_value){
+             $('.password_validation span').text('گذرواژه اشتباه وارد شده است!');
+             return false;
+        }
+        else{
             return true;
         }
     }

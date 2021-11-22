@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect, get_object_or_404, HttpResponse
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
+from market.models import Customer
 from .models import Profile
 from .forms import RegistrationForm
 from django.contrib.auth.models import User, Group
@@ -57,6 +58,7 @@ def user_list(request):
             group = Group.objects.get(name=groups)
             username = request.POST.get('email')
             password = request.POST.get('password')
+            # try:
             user = User.objects.create_user(username=username, email=email, password=password, first_name=first_name,
                                             last_name=last_name, is_staff=True)
             print('user created')
@@ -64,9 +66,11 @@ def user_list(request):
             user.save()
             print('user save')
             Profile.objects.create(user=user)
-            # form_instance = form.save()
-            # return redirect('account:user_list')
+            Customer.objects.create(user=user)
+            print('success register')
             return HttpResponse("data submitted successfully")
+            # except Exception as e:
+            #     print('error in registration', str(e))
         # else:
         #
         #     # Redirect back to the same page if the data
@@ -81,21 +85,20 @@ def user_list(request):
     return render(request, 'account/user_list.html', context=context)
 
 
-@login_required
-def user_profile(request, pk):
-    user = get_object_or_404(Profile, user_id=pk)
-    print(user)
+# @login_required
+# def user_profile(request, str):
+#     user = get_object_or_404(Profile, random_url=str)
+#     print(user)
+#
+#     if request.method == 'POST':
+#         user.add_point()
+#         # return redirect('account:user_profile')
+#
+#     context = {
+#         'user': user,
+#     }
+#
+#     return render(request, 'account/profile.html', context=context)
 
-    if request.method == 'POST':
-        user.add_point()
-        # return redirect('account:user_profile')
 
-    context = {
-        'user': user,
-    }
-
-    return render(request, 'account/profile.html', context=context)
-
-def shopping_cart(request, pk):
-    presenter = get_object_or_404(Profile, user_id=pk)
 

@@ -1,0 +1,25 @@
+{% extends 'account/base.html' %}
+{% load static %}
+{% load poll_extras %}
+{% block body %}
+
+    <div class="container text-center mt-5">
+        <div><span> کاربر: {{ user }}</span></div>
+        <div><span> معرف: {{ presenter }}</span></div>
+        <div class="mt-5 mb-5">
+            <form action="" method="post">
+                {% csrf_token %}
+                <input type="hidden" value="{{ presenter }}" name="presenter">
+                <p>برای اضافه کردن محصول به سبد خرید روی محصول مورد نظر کلیک کنید</p>
+                {% for p in products %}
+                    <input type="submit" class="btn btn-primary" name="product" value="{{ p.name }}">
+{#                    <button type="submit" class="btn btn-primary" name="product">{{ p.name }}</button>#}
+                {% endfor %}
+{#                <button class="btn btn-primary">اضافه به سبد خرید</button>#}
+            </form>
+            <a href="{% url 'market:shopping_cart' %}" class="btn btn-info mt-5">لیست سفارشات</a>
+        </div>
+
+    </div>
+
+{% endblock %}

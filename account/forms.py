@@ -7,7 +7,7 @@ groups = Group.objects.all()
 
 
 class RegistrationForm(forms.ModelForm):
-    re_password = forms.CharField(max_length=128, label='تایید گذرواژه', widget=PasswordInput())
+    # re_password = forms.CharField(max_length=128, label='تایید گذرواژه', widget=PasswordInput())
 
     class Meta:
         model = User
@@ -16,6 +16,40 @@ class RegistrationForm(forms.ModelForm):
             'password': PasswordInput(),
             # 're_password': PasswordInput()
         }
+
+    first_name = forms.CharField(label='نام', max_length=50, required=False,
+                                 widget=forms.TextInput(
+                                     attrs={
+                                         'class': 'rounded border border-gray-300 w-full text-gray-800 mt-4 '
+                                                  'mb-8 px-3 py-2 block',
+                                         'placeholder': 'نام'}))
+
+    last_name = forms.CharField(label='نام خانوادگی', max_length=50, required=False,
+                                widget=forms.TextInput(
+                                    attrs={
+                                        'class': 'rounded border border-gray-300 w-full text-gray-800 mt-4 '
+                                                 'mb-8 px-3 py-2 block',
+                                        'placeholder': 'نام خانوادگی'}))
+    email = forms.CharField(label='ایمیل', max_length=50, required=False,
+                            widget=forms.TextInput(
+                                attrs={
+                                    'class': 'rounded border border-gray-300 text-gray-800 w-full mt-4 '
+                                             'mb-8 px-3 py-2 block',
+                                    'placeholder': 'ایمیل'}))
+
+    password = forms.CharField(label='ایمیل', max_length=50, required=False,
+                               widget=forms.PasswordInput(
+                                   attrs={
+                                       'class': 'rounded border border-gray-300 text-gray-800 w-full mt-4 '
+                                                'mb-8 px-3 py-2 block',
+                                       'placeholder': 'پسورد'}))
+
+    re_password = forms.CharField(label='ایمیل', max_length=50, required=False,
+                                  widget=forms.PasswordInput(
+                                      attrs={
+                                          'class': 'rounded border border-gray-300 text-gray-800 w-full mt-4 '
+                                                   'mb-8 px-3 py-2 block',
+                                          'placeholder': 'تایید پسورد'}))
 
     groups = forms.CharField(label='نوع کاربر', max_length=50,
                              widget=forms.Select(choices=zip(groups, groups),

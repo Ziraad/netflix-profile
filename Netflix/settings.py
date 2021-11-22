@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'dj_rest_auth',
 
     'account.apps.AccountConfig',
+    'market.apps.MarketConfig',
 ]
 
 MIDDLEWARE = [

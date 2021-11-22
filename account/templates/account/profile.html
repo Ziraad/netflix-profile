@@ -1,27 +1,21 @@
+{% extends 'account/base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <link rel="stylesheet"  href="{% static 'account/css/bootstrap.min.css' %}">
-    <title>{{user}}</title>
-</head>
-
-<body>
+{% load poll_extras %}
+{% block body %}
 
 <div class="container text-center mt-5">
-    <span>معرف : {{user.user.username}}</span>
-<div class="mt-5">
-    <form action="" method="post">
-        {% csrf_token %}
-        <input type="hidden" value="{{user.user.username}}" name="presenter">
-        <button type="submit" class="btn btn-primary">خرید</button>
-    </form>
-</div>
+    <span> معرف: {{ user.user.username }}</span>
+    <div class="mt-5 mb-5">
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="hidden" value="{{ user.user.username }}" name="presenter">
+            <p>برای اضافه کردن محصول به سبد خرید روی دکمه زیر کلیک کنید</p>
+            <button type="submit" class="btn btn-primary">اضافه به سبد خرید</button>
+        </form>
+        <a href="{% url 'market:shopping_cart' %}" class="btn btn-info">لیست سفارشات</a>
+
+    </div>
 
 </div>
 
-<script src='{% static 'account/js/jquery.min.js' %}'></script>
-<script src='{% static 'account/js/bootstrap.min.js' %}'></script>
-</body>
-</html>
+{% endblock %}

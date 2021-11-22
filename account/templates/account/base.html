@@ -10,7 +10,9 @@
     <title>یادگیری زبان نتفلیکس |</title>
 </head>
 <body>
-{% block body %}{% endblock %}
+{% include 'account/partial/_navbar.html' %}
+{% block body %}
+{% endblock %}
 
 <script src="{% static "account/js/jquery.min.js" %}"></script>
 <script src='{% static 'account/js/popper.min.js' %}'></script>
