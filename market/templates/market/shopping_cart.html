@@ -2,40 +2,53 @@
 {% load static %}
 {% load poll_extras %}
 {% block body %}
-<div class="mt-5 container">
-    <div class="mt-5 mb-5">
-        <h3 class="text-center"> <b class="text-info">{{ user }}</b> عزیز برای نهایی کردن خرید روی دکمه 'خرید نهایی' کلیک کنید </h3>
-    </div>
-    <table class="table table-bordered rtl">
-        <thead>
-        <tr class="bg-info">
-            <th scope="col">#</th>
-            <th scope="col">نام محصول</th>
-            <th scope="col">قیمت</th>
-            {#                    <th scope="col">Handle</th>#}
-        </tr>
-        </thead>
-        <tbody>
-        {% for product in products %}
-        <tr>
-            <th scope="row">1</th>
-            <td>{{ product.name }}</td>
-            <td>{{ product.price }}</td>
-            {#                    <td>@mdo</td>#}
-        </tr>
-        {% endfor %}
-        <tr class="font-weight-bold">
-{#            <th scope="row"></th>#}
-            <th colspan="2">جمع کل مبلغ</th>
-            <th>1000 تومان</th>
-            {#                    <td>@fat</td>#}
-        </tr>
-        </tbody>
-    </table>
-    <form action="" method="post">
-        {% csrf_token %}
-        <button type="submit" class="btn btn-primary p-3">خرید نهایی</button>
-    </form>
+<div class="mt-5 text-center container">
+    {% if error %}
+        <div class=" mt-4 mb-4">خطا : <b class="text-danger">{{ error }}</b></div>
+        <div class="bg-warning p-2 rounded mt-4 mb-4"><span class="">امکان مشاهده اطلاعات برای شما وجود ندارد .لطفاً بعنوان کاربر "خریدار" وارد سایت شوید</span>
+        </div>
+    {% else %}
+        {% if products %}
+            <div class="mt-5 mb-5">
+                <h3 class="text-center"><b class="text-info">{{ user }}</b> عزیز برای نهایی کردن خرید روی دکمه 'خرید
+                    نهایی' کلیک کنید </h3>
+            </div>
+            <table class="table table-bordered rtl">
+            <thead>
+            <tr class="bg-info">
+                <th scope="col">#</th>
+                <th scope="col">نام محصول</th>
+                <th scope="col">قیمت</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for product in products %}
+                <tr>
+                    <th scope="row">1</th>
+                    <td>{{ product.name }}</td>
+                    <td>{{ product.price }}</td>
+                </tr>
+            {% endfor %}
+            <tr class="font-weight-bold">
+                <th colspan="2">جمع کل مبلغ</th>
+                <th>x تومان</th>
+            </tr>
 
+    </tbody>
+    </table>
+        <form action="" method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-primary p-3">خرید نهایی</button>
+        </form>
+
+        <div class="bg-info rounded p-2 mt-4">
+            <span>* بعد از کلیک روی دکمه خرید امتیاز معرف افزایش یافته و سفارش از لیست سفارشات درانتظار پرداخت حذف می گردد.</span>
+        </div>
+    {% else %}
+        <div class="bg-info rounded p-2">
+            <span>سبد خرید شما خالی است.</span>
+        </div>
+    {% endif %}
+    {% endif %}
 </div>
 {% endblock %}

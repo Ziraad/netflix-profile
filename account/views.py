@@ -39,7 +39,7 @@ def login_view(request):
 
 def logout_view(request):
     logout(request)
-    return HttpResponseRedirect(reverse('baratibox:home_page'))
+    return HttpResponseRedirect(reverse('account:user_list'))
 
 
 def user_list(request):
@@ -68,7 +68,7 @@ def user_list(request):
             Profile.objects.create(user=user)
             Customer.objects.create(user=user)
             print('success register')
-            return HttpResponse("data submitted successfully")
+            return render(request, "account/user_list.html", {'users': users, 'form': form})
             # except Exception as e:
             #     print('error in registration', str(e))
         # else:
@@ -85,20 +85,19 @@ def user_list(request):
     return render(request, 'account/user_list.html', context=context)
 
 
-# @login_required
-# def user_profile(request, str):
-#     user = get_object_or_404(Profile, random_url=str)
-#     print(user)
-#
-#     if request.method == 'POST':
-#         user.add_point()
-#         # return redirect('account:user_profile')
-#
-#     context = {
-#         'user': user,
-#     }
-#
-#     return render(request, 'account/profile.html', context=context)
+@login_required
+def user_profile(request, pk):
+    print('pk: ', pk)
+    user = get_object_or_404(Profile, user_id=pk)
+    user_presented = Customer.objects.filter(order__presenter=user)
+    print(user)
+
+    context = {
+        'user': user,
+        'user_presented': user_presented,
+    }
+
+    return render(request, 'account/profile.html', context=context)
 
 
 

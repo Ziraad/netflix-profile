@@ -17,7 +17,7 @@
             <tr>
                 <th scope="col"></th>
                 <th scope="col">شماره کاربر</th>
-                <th scope="col">آدرس ایمیل</th>
+                <th scope="col">آدرس ایمیل *</th>
                 <th scope="col">نوع کاربر</th>
                 <th scope="col">نام - نام خانوادگی</th>
                 <th scope="col">آخرین ورود</th>
@@ -44,10 +44,13 @@
             <span class="text-sm">نمایش 1 تا {{users.count }} از مجموع {{ users.count }}</span>
         </div>
 
+    <div class="bg-info rounded p-2"><span>* برای ورود به صفحه اختصاصی هر کاربر روی لینک آدرس ایمیل کاربر مورد نظر کلیک کنید.</span></div>
+
 
 <!--        modal -->
+
 <form method="post" class="form-register">
-  {% csrf_token %}
+{% csrf_token %}
 <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
@@ -89,8 +92,7 @@
     </div>
 </div>
 
-<script src="{% static 'account/js/register_user.js' %}"></script>
-
-<!--<script src="{% static "account/js/script.js" %}"></script>-->
-
+{% endblock %}
+{% block extra_script %}
+    <script src="{% static 'account/js/register_user.js' %}"></script>
 {% endblock %}

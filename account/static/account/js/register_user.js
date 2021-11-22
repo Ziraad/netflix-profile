@@ -51,6 +51,8 @@ $(document).ready(function () {
             error: function (rs, e) {
             },
         })
+        $('.modal').modal('hide');
+        return false;
     });
 
     function IsEmail(email) {

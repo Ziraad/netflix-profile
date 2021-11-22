@@ -5,6 +5,10 @@
 
     <div class="container text-center mt-5">
         <div><span> کاربر: {{ user }}</span></div>
+    {% if error %}
+        <div class=" mt-4 mb-4">خطا : <b class="text-danger">{{ error }}</b></div>
+        <div class="bg-warning p-2 rounded mt-4 mb-4"><span class="">امکان مشاهده اطلاعات برای شما وجود ندارد .لطفاً بعنوان کاربر "خریدار" وارد سایت شوید</span></div>
+    {% else %}
         <div><span> معرف: {{ presenter }}</span></div>
         <div class="mt-5 mb-5">
             <form action="" method="post">
@@ -19,6 +23,7 @@
             </form>
             <a href="{% url 'market:shopping_cart' %}" class="btn btn-info mt-5">لیست سفارشات</a>
         </div>
+    {% endif %}
 
     </div>
 

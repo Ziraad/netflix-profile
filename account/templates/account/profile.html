@@ -3,19 +3,33 @@
 {% load poll_extras %}
 {% block body %}
 
-<div class="container text-center mt-5">
-    <span> معرف: {{ user.user.username }}</span>
-    <div class="mt-5 mb-5">
-        <form action="" method="post">
-            {% csrf_token %}
-            <input type="hidden" value="{{ user.user.username }}" name="presenter">
-            <p>برای اضافه کردن محصول به سبد خرید روی دکمه زیر کلیک کنید</p>
-            <button type="submit" class="btn btn-primary">اضافه به سبد خرید</button>
-        </form>
-        <a href="{% url 'market:shopping_cart' %}" class="btn btn-info">لیست سفارشات</a>
+    <div class="container text-center mt-5">
+        <div class="mt-5 mb-5">
+            <h2>{{ user }}</h2>
+            <div class="border rounded mt-4">
+{#                <div class="bg-info p-2"><span>لیست کاربرانی که شما معرف آنها بوده اید:</span></div>#}
+
+                <table class="table table-hover">
+                    <thead>
+                    <tr>
+                        <th class="bg-info p-2" scope="col">لیست کاربرانی که شما معرف آنها بوده اید:</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                   {% for user in user_presented %}
+                        <tr>
+                            <td>{{ user }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <ul class="list-group">
+
+                </ul>
+            </div>
+
+        </div>
 
     </div>
-
-</div>
 
 {% endblock %}
